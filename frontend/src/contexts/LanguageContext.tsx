@@ -42,6 +42,9 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Export
     'export.button': 'Export Data',
+    'export.csv': 'Export as CSV',
+    'export.json': 'Export as JSON',
+    'export.pdf': 'Export as PDF',
 
     // KPI Cards
     'kpi.totalProduction': 'Total Production',
@@ -101,6 +104,9 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Export
     'export.button': 'Exporter les Données',
+    'export.csv': 'Exporter en CSV',
+    'export.json': 'Exporter en JSON',
+    'export.pdf': 'Exporter en PDF',
 
     // KPI Cards
     'kpi.totalProduction': 'Production Totale',
