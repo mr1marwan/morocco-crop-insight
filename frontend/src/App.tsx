@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CropSelector from './components/CropSelector';
 import ExportButton from './components/ExportButton';
+import KPICards from './components/KPICards';
 import ProductionLineChart from './components/ProductionLineChart';
 import TopCropsBarChart from './components/TopCropsBarChart';
 import CropDistributionPieChart from './components/CropDistributionPieChart';
@@ -78,6 +79,39 @@ function DashboardContent() {
       .sort((a, b) => b.value - a.value);
   }, [faoData]);
 
+  const kpiData = useMemo(() => {
+    const cropData = cropChartData;
+    if (cropData.length === 0) {
+      return {
+        totalProduction: 0,
+        averageProduction: 0,
+        growthRate: 0,
+        topRegion: { name: 'N/A', value: 0 }
+      };
+    }
+
+    const totalProduction = cropData.reduce((sum, d) => sum + d.production_kt, 0);
+    const averageProduction = totalProduction / cropData.length;
+
+    // Calculate growth rate (comparing first and last year)
+    const firstYear = cropData[0]?.production_kt || 0;
+    const lastYear = cropData[cropData.length - 1]?.production_kt || 0;
+    const growthRate = firstYear > 0 ? ((lastYear - firstYear) / firstYear) * 100 : 0;
+
+    // Find top region for this crop from regional data
+    const cropRegionalData = regionalData
+      .map(r => ({ name: r.region, value: r.production_2023_kt }))
+      .sort((a, b) => b.value - a.value);
+    const topRegion = cropRegionalData[0] || { name: 'N/A', value: 0 };
+
+    return {
+      totalProduction: Math.round(totalProduction),
+      averageProduction,
+      growthRate,
+      topRegion
+    };
+  }, [cropChartData, regionalData]);
+
   if (loading) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${
@@ -126,6 +160,9 @@ function DashboardContent() {
           selectedCrop={selectedCrop}
           onSelectCrop={setSelectedCrop}
         />
+
+        {/* KPI Cards */}
+        <KPICards data={kpiData} />
 
         {/* Charts Grid */}
         <div id="analytics" className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">

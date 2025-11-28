@@ -43,6 +43,12 @@ const translations: Record<Language, Record<string, string>> = {
     // Export
     'export.button': 'Export Data',
 
+    // KPI Cards
+    'kpi.totalProduction': 'Total Production',
+    'kpi.averageProduction': 'Average Production',
+    'kpi.growthRate': 'Growth Rate',
+    'kpi.topRegion': 'Top Region',
+
     // Footer
     'footer.about': 'About Morocco Crop Insight',
     'footer.aboutText': 'An interactive platform providing comprehensive agricultural analytics for Morocco, featuring crop production data, regional insights, and trends from 2013-2023.',
@@ -83,6 +89,12 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Export
     'export.button': 'Exporter les Données',
+
+    // KPI Cards
+    'kpi.totalProduction': 'Production Totale',
+    'kpi.averageProduction': 'Production Moyenne',
+    'kpi.growthRate': 'Taux de Croissance',
+    'kpi.topRegion': 'Région Top',
 
     // Footer
     'footer.about': 'À Propos',
