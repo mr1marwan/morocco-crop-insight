@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CropSelector from './components/CropSelector';
 import ExportButton from './components/ExportButton';
+import YearRangeFilter from './components/YearRangeFilter';
 import KPICards from './components/KPICards';
 import ProductionLineChart from './components/ProductionLineChart';
 import TopCropsBarChart from './components/TopCropsBarChart';
@@ -29,6 +30,8 @@ function DashboardContent() {
   const [dataMap, setDataMap] = useState<Record<string, number>>({});
   const [geoJsonData, setGeoJsonData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedMinYear, setSelectedMinYear] = useState(2013);
+  const [selectedMaxYear, setSelectedMaxYear] = useState(2023);
 
   const API_URL = "http://localhost:8000";
 
@@ -68,16 +71,18 @@ function DashboardContent() {
 
   const cropChartData = useMemo(() => {
     return faoData
-      .filter(d => d.crop_en === selectedCrop)
+      .filter(d => d.crop_en === selectedCrop && d.year >= selectedMinYear && d.year <= selectedMaxYear)
       .sort((a, b) => a.year - b.year);
-  }, [faoData, selectedCrop]);
+  }, [faoData, selectedCrop, selectedMinYear, selectedMaxYear]);
 
   const top2023 = useMemo(() => {
+    // Use the latest year in the selected range instead of hardcoded 2023
+    const latestYear = selectedMaxYear;
     return faoData
-      .filter(d => d.year === 2023)
+      .filter(d => d.year === latestYear)
       .map(d => ({ name: d.crop_fr, value: Math.round(d.production_kt) }))
       .sort((a, b) => b.value - a.value);
-  }, [faoData]);
+  }, [faoData, selectedMaxYear]);
 
   const kpiData = useMemo(() => {
     const cropData = cropChartData;
@@ -161,6 +166,16 @@ function DashboardContent() {
           onSelectCrop={setSelectedCrop}
         />
 
+        {/* Year Range Filter */}
+        <YearRangeFilter
+          minYear={2013}
+          maxYear={2023}
+          selectedMinYear={selectedMinYear}
+          selectedMaxYear={selectedMaxYear}
+          onMinYearChange={setSelectedMinYear}
+          onMaxYearChange={setSelectedMaxYear}
+        />
+
         {/* KPI Cards */}
         <KPICards data={kpiData} />
 
@@ -171,7 +186,7 @@ function DashboardContent() {
             cropName={crops.find(c => c.en === selectedCrop)?.fr || selectedCrop}
             color={cropColors[selectedCrop] || '#006400'}
           />
-          <TopCropsBarChart data={top2023} />
+          <TopCropsBarChart data={top2023} year={selectedMaxYear} />
           <CropDistributionPieChart data={top2023} />
         </div>
 

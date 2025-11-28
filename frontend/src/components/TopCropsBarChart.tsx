@@ -4,9 +4,10 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 interface TopCropsBarChartProps {
   data: any[];
+  year?: number;
 }
 
-const TopCropsBarChart = ({ data }: TopCropsBarChartProps) => {
+const TopCropsBarChart = ({ data, year }: TopCropsBarChartProps) => {
   const { darkMode } = useTheme();
   const { t } = useLanguage();
 
@@ -17,7 +18,7 @@ const TopCropsBarChart = ({ data }: TopCropsBarChartProps) => {
       <h3 className={`text-lg font-bold mb-4 ${
         darkMode ? 'text-white' : 'text-gray-900'
       }`}>
-        {t('charts.topCrops')}
+        {t('charts.topCrops')}{year ? ` ${year}` : ' 2023'}
       </h3>
       <ResponsiveContainer width="100%" height={240}>
         <BarChart data={data.slice(0, 5)}>

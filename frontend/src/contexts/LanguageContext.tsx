@@ -49,6 +49,13 @@ const translations: Record<Language, Record<string, string>> = {
     'kpi.growthRate': 'Growth Rate',
     'kpi.topRegion': 'Top Region',
 
+    // Year Filter
+    'filter.yearRange': 'Year Range Filter',
+    'filter.fromYear': 'From Year',
+    'filter.toYear': 'To Year',
+    'filter.showingData': 'Showing data for',
+    'filter.years': 'years',
+
     // Footer
     'footer.about': 'About Morocco Crop Insight',
     'footer.aboutText': 'An interactive platform providing comprehensive agricultural analytics for Morocco, featuring crop production data, regional insights, and trends from 2013-2023.',
@@ -95,6 +102,13 @@ const translations: Record<Language, Record<string, string>> = {
     'kpi.averageProduction': 'Production Moyenne',
     'kpi.growthRate': 'Taux de Croissance',
     'kpi.topRegion': 'Région Top',
+
+    // Year Filter
+    'filter.yearRange': 'Filtre de Plage d\'Années',
+    'filter.fromYear': 'Depuis l\'Année',
+    'filter.toYear': 'Jusqu\'à l\'Année',
+    'filter.showingData': 'Affichage des données pour',
+    'filter.years': 'années',
 
     // Footer
     'footer.about': 'À Propos',
