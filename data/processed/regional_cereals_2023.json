@@ -1,6 +1,6 @@
 [
   {
-    "region":"Tanger-Tétouan-Al Hoceïma",
+    "region":"Tanger-Tétouan-Al Hoceima",
     "production_2023_kt":682.0
   },
   {
@@ -8,7 +8,7 @@
     "production_2023_kt":69.5
   },
   {
-    "region":"Fès-Meknès",
+    "region":"Fés-Meknés",
     "production_2023_kt":1493.6
   },
   {
@@ -20,7 +20,7 @@
     "production_2023_kt":614.0
   },
   {
-    "region":"Casablanca-Settat",
+    "region":"Grand Casablanca-Settat",
     "production_2023_kt":930.4
   },
   {
@@ -38,5 +38,13 @@
   {
     "region":"Guelmim-Oued Noun",
     "production_2023_kt":2.0
+  },
+  {
+    "region":"Laayoune-Sakia El Hamra",
+    "production_2023_kt":0.0
+  },
+  {
+    "region":"Eddakhla-Oued Eddahab",
+    "production_2023_kt":0.0
   }
 ]

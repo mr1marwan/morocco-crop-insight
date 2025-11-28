@@ -2,52 +2,43 @@ import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import { useState, useEffect, useMemo } from 'react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import 'leaflet/dist/leaflet.css';
-import regionalData from '../data/processed/regional_cereals_2023.json';
-
-const crops = [
-  { en: 'Wheat', fr: 'Blé', color: '#8B4513' },
-  { en: 'Barley', fr: 'Orge', color: '#DAA520' },
-  { en: 'Olives', fr: 'Olives', color: '#6B8E23' },
-  { en: 'Tomatoes', fr: 'Tomates', color: '#DC143C' },
-];
+import axios from 'axios';
 
 const COLORS = ['#006400', '#238b45', '#41ab5d', '#74c476', '#a1d99b', '#c7e9c0'];
 
 function App() {
   const [selectedCrop, setSelectedCrop] = useState('Wheat');
   const [faoData, setFaoData] = useState<any[]>([]);
+  const [regionalData, setRegionalData] = useState<any[]>([]);
+  const [crops, setCrops] = useState<any[]>([]);
   const [dataMap, setDataMap] = useState<Record<string, number>>({});
   const [geoJsonData, setGeoJsonData] = useState(null);
 
+  const API_URL = "http://localhost:8000";
+
   useEffect(() => {
-    // Load GeoJSON and FAO data
-    Promise.all([
-      fetch('/data/raw/Morocco-Regions.geojson').then(res => res.json()),
-      fetch('/data/processed/fao_national_clean.csv').then(res => res.text())
-    ]).then(([geoJson, csvText]) => {
-      setGeoJsonData(geoJson);
+    // Load GeoJSON locally (still from public folder)
+    fetch('/data/raw/Morocco-Regions.geojson')
+      .then(res => res.json())
+      .then(data => setGeoJsonData(data))
+      .catch(err => console.error('Error loading GeoJSON:', err));
 
-      // Parse CSV manually
-      const lines = csvText.split('\n');
-      const headers = lines[0].split(',');
-      const data = lines.slice(1).filter(line => line.trim()).map(line => {
-        const values = line.split(',');
-        return {
-          year: parseInt(values[0]),
-          crop_en: values[1],
-          crop_fr: values[2],
-          production_kt: parseFloat(values[3]),
-          area_ha: parseFloat(values[4]),
-          yield_tha: parseFloat(values[5])
-        };
-      });
-      setFaoData(data);
-
-      // Load regional data
+    // Load data from API
+    axios.get(`${API_URL}/regional`).then(r => {
+      setRegionalData(r.data);
+      // Build map for regional data
       const map: Record<string, number> = {};
-      regionalData.forEach((d: any) => (map[d.region] = d.production_2023_kt));
+      r.data.forEach((d: any) => (map[d.region] = d.production_2023_kt));
       setDataMap(map);
-    }).catch(err => console.error('Error loading data:', err));
+    }).catch(err => console.error('Error loading regional data:', err));
+
+    axios.get(`${API_URL}/national`).then(r => {
+      setFaoData(r.data);
+    }).catch(err => console.error('Error loading national data:', err));
+
+    axios.get(`${API_URL}/crops`).then(r => {
+      setCrops(r.data);
+    }).catch(err => console.error('Error loading crops:', err));
   }, []);
 
   // Memoized data for charts
@@ -61,6 +52,14 @@ function App() {
       .map(d => ({ name: d.crop_fr, value: Math.round(d.production_kt) }))
       .sort((a, b) => b.value - a.value);
   }, [faoData]);
+
+  // Crop colors for line chart
+  const cropColors: Record<string, string> = {
+    'Wheat': '#8B4513',
+    'Barley': '#DAA520',
+    'Olives': '#6B8E23',
+    'Tomatoes': '#DC143C'
+  };
 
   const getColor = (v: number) => {
     return v > 1400 ? '#006400' :
@@ -121,7 +120,9 @@ function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {/* Line Chart */}
           <div className="bg-white p-4 rounded-xl shadow-lg">
-            <h3 className="text-lg font-bold mb-3">Évolution {crops.find(c => c.en === selectedCrop)?.fr}</h3>
+            <h3 className="text-lg font-bold mb-3">
+              Évolution {crops.find(c => c.en === selectedCrop)?.fr || selectedCrop}
+            </h3>
             <ResponsiveContainer width="100%" height={250}>
               <LineChart data={cropChartData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -131,7 +132,7 @@ function App() {
                 <Line
                   type="monotone"
                   dataKey="production_kt"
-                  stroke={crops.find(c => c.en === selectedCrop)?.color}
+                  stroke={cropColors[selectedCrop] || '#006400'}
                   strokeWidth={2}
                 />
               </LineChart>
