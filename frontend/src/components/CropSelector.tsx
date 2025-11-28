@@ -1,4 +1,5 @@
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CropSelectorProps {
   crops: Array<{ en: string; fr: string }>;
@@ -8,6 +9,7 @@ interface CropSelectorProps {
 
 const CropSelector = ({ crops, selectedCrop, onSelectCrop }: CropSelectorProps) => {
   const { darkMode } = useTheme();
+  const { language } = useLanguage();
 
   return (
     <div id="dashboard" className="mb-8">
@@ -26,7 +28,7 @@ const CropSelector = ({ crops, selectedCrop, onSelectCrop }: CropSelectorProps) 
                   : 'bg-white text-gray-700 hover:bg-gray-50 shadow-lg'
             }`}
           >
-            {crop.fr}
+            {language === 'en' ? crop.en : crop.fr}
           </button>
         ))}
       </div>

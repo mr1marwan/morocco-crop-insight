@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import 'leaflet/dist/leaflet.css';
 
 interface RegionalMapProps {
@@ -9,6 +10,7 @@ interface RegionalMapProps {
 
 const RegionalMap = ({ geoJsonData, dataMap }: RegionalMapProps) => {
   const { darkMode } = useTheme();
+  const { t } = useLanguage();
 
   const getColor = (v: number) => {
     return v > 1400 ? '#006400' :
@@ -49,13 +51,8 @@ const RegionalMap = ({ geoJsonData, dataMap }: RegionalMapProps) => {
         <h2 className={`text-xl font-bold ${
           darkMode ? 'text-white' : 'text-gray-900'
         }`}>
-          Regional Cereal Production Map
+          {t('map.title')}
         </h2>
-        <p className={`text-sm mt-1 ${
-          darkMode ? 'text-gray-400' : 'text-gray-600'
-        }`}>
-          2022-2023 HCP Data by Region
-        </p>
       </div>
 
       <div className="relative">

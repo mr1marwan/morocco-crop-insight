@@ -1,8 +1,10 @@
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import DarkModeToggle from './DarkModeToggle';
 
 const Navbar = () => {
   const { darkMode } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <nav className={`w-full sticky top-0 z-50 backdrop-blur-lg border-b transition-colors duration-300 ${
@@ -22,7 +24,7 @@ const Navbar = () => {
               <h1 className={`text-xl font-bold tracking-tight ${
                 darkMode ? 'text-white' : 'text-gray-900'
               }`}>
-                Morocco Crop Insight
+                {t('nav.title')}
               </h1>
             </div>
           </div>
@@ -37,7 +39,7 @@ const Navbar = () => {
                   : 'text-gray-700 hover:bg-gray-100 hover:text-morocco-green'
               }`}
             >
-              Dashboard
+              {t('nav.dashboard')}
             </a>
             <a
               href="#analytics"
@@ -47,7 +49,7 @@ const Navbar = () => {
                   : 'text-gray-700 hover:bg-gray-100 hover:text-morocco-green'
               }`}
             >
-              Analytics
+              {t('nav.analytics')}
             </a>
             <a
               href="#map"
@@ -57,12 +59,46 @@ const Navbar = () => {
                   : 'text-gray-700 hover:bg-gray-100 hover:text-morocco-green'
               }`}
             >
-              Regional Map
+              {t('nav.map')}
             </a>
           </div>
 
-          {/* Dark Mode Toggle */}
-          <DarkModeToggle />
+          {/* Language & Dark Mode Toggle */}
+          <div className="flex items-center gap-3">
+            {/* Language Selector */}
+            <div className={`flex items-center gap-1 border rounded-lg p-1 ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1 text-xs font-semibold rounded transition-all ${
+                  language === 'en'
+                    ? darkMode
+                      ? 'bg-green-600 text-white'
+                      : 'bg-morocco-green text-white'
+                    : darkMode
+                    ? 'text-gray-400 hover:text-gray-300'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLanguage('fr')}
+                className={`px-3 py-1 text-xs font-semibold rounded transition-all ${
+                  language === 'fr'
+                    ? darkMode
+                      ? 'bg-green-600 text-white'
+                      : 'bg-morocco-green text-white'
+                    : darkMode
+                    ? 'text-gray-400 hover:text-gray-300'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                FR
+              </button>
+            </div>
+
+            <DarkModeToggle />
+          </div>
         </div>
       </div>
     </nav>

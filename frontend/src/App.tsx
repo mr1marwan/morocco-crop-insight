@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
+import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CropSelector from './components/CropSelector';
@@ -19,6 +20,7 @@ const cropColors: Record<string, string> = {
 
 function DashboardContent() {
   const { darkMode } = useTheme();
+  const { t } = useLanguage();
   const [selectedCrop, setSelectedCrop] = useState('Wheat');
   const [faoData, setFaoData] = useState<any[]>([]);
   const [regionalData, setRegionalData] = useState<any[]>([]);
@@ -106,12 +108,12 @@ function DashboardContent() {
               <h2 className={`text-2xl sm:text-3xl font-bold ${
                 darkMode ? 'text-white' : 'text-gray-900'
               }`}>
-                Agricultural Analytics Dashboard
+                {t('header.title')}
               </h2>
               <p className={`mt-2 text-sm sm:text-base ${
                 darkMode ? 'text-gray-400' : 'text-gray-600'
               }`}>
-                Comprehensive crop production insights from 2013-2023
+                {t('header.subtitle')}
               </p>
             </div>
             <ExportButton data={cropChartData} selectedCrop={selectedCrop} />
@@ -148,9 +150,11 @@ function DashboardContent() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <DashboardContent />
-    </ThemeProvider>
+    <LanguageProvider>
+      <ThemeProvider>
+        <DashboardContent />
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }
 

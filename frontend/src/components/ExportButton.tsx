@@ -1,4 +1,5 @@
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ExportButtonProps {
   data: any[];
@@ -7,6 +8,7 @@ interface ExportButtonProps {
 
 const ExportButton = ({ data, selectedCrop }: ExportButtonProps) => {
   const { darkMode } = useTheme();
+  const { t } = useLanguage();
 
   const exportToCSV = () => {
     const csv = data.map(d =>
@@ -34,8 +36,7 @@ const ExportButton = ({ data, selectedCrop }: ExportButtonProps) => {
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
       </svg>
-      <span className="hidden sm:inline">Export Data</span>
-      <span className="sm:hidden">Export</span>
+      <span>{t('export.button')}</span>
     </button>
   );
 };

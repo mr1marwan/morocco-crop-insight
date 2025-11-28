@@ -1,5 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface TopCropsBarChartProps {
   data: any[];
@@ -7,6 +8,7 @@ interface TopCropsBarChartProps {
 
 const TopCropsBarChart = ({ data }: TopCropsBarChartProps) => {
   const { darkMode } = useTheme();
+  const { t } = useLanguage();
 
   return (
     <div className={`${
@@ -15,7 +17,7 @@ const TopCropsBarChart = ({ data }: TopCropsBarChartProps) => {
       <h3 className={`text-lg font-bold mb-4 ${
         darkMode ? 'text-white' : 'text-gray-900'
       }`}>
-        Top Crops 2023
+        {t('charts.topCrops')}
       </h3>
       <ResponsiveContainer width="100%" height={240}>
         <BarChart data={data.slice(0, 5)}>

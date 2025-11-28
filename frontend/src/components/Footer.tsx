@@ -1,7 +1,9 @@
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Footer = () => {
   const { darkMode } = useTheme();
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -15,14 +17,12 @@ const Footer = () => {
             <h3 className={`font-bold text-lg mb-3 ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}>
-              About Morocco Crop Insight
+              {t('footer.about')}
             </h3>
             <p className={`text-sm ${
               darkMode ? 'text-gray-400' : 'text-gray-600'
             }`}>
-              An interactive platform providing comprehensive agricultural analytics
-              for Morocco, featuring crop production data, regional insights, and trends
-              from 2013-2023.
+              {t('footer.aboutText')}
             </p>
           </div>
 
@@ -31,7 +31,7 @@ const Footer = () => {
             <h3 className={`font-bold text-lg mb-3 ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}>
-              Data Sources
+              {t('footer.sources')}
             </h3>
             <ul className={`text-sm space-y-2 ${
               darkMode ? 'text-gray-400' : 'text-gray-600'
@@ -47,12 +47,12 @@ const Footer = () => {
             <h3 className={`font-bold text-lg mb-3 ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}>
-              Developer
+              {t('footer.developer')}
             </h3>
             <p className={`text-sm mb-3 ${
               darkMode ? 'text-gray-400' : 'text-gray-600'
             }`}>
-              Developed by <span className="font-semibold text-morocco-green">
+              {t('footer.developedBy')} <span className="font-semibold text-morocco-green">
                 Marouane AIT HAMMOU
               </span>
             </p>
@@ -95,8 +95,8 @@ const Footer = () => {
         <div className={`mt-8 pt-6 border-t text-center text-sm ${
           darkMode ? 'border-gray-700 text-gray-500' : 'border-gray-200 text-gray-600'
         }`}>
-          <p>© {currentYear} Morocco Crop Insight. All rights reserved.</p>
-          <p className="mt-1">Built with React, TypeScript, Tailwind CSS & FastAPI</p>
+          <p>© {currentYear} {t('footer.rights')}</p>
+          <p className="mt-1">{t('footer.builtWith')}</p>
         </div>
       </div>
     </footer>

@@ -1,5 +1,6 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const COLORS = ['#006400', '#238b45', '#41ab5d', '#74c476', '#a1d99b', '#c7e9c0'];
 
@@ -9,6 +10,7 @@ interface CropDistributionPieChartProps {
 
 const CropDistributionPieChart = ({ data }: CropDistributionPieChartProps) => {
   const { darkMode } = useTheme();
+  const { t } = useLanguage();
 
   return (
     <div className={`${
@@ -17,7 +19,7 @@ const CropDistributionPieChart = ({ data }: CropDistributionPieChartProps) => {
       <h3 className={`text-lg font-bold mb-4 ${
         darkMode ? 'text-white' : 'text-gray-900'
       }`}>
-        Crop Distribution 2023
+        {t('charts.distribution')}
       </h3>
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
