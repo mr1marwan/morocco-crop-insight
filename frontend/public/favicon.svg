@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#006400"/>
+
+  <!-- Wheat stem -->
+  <path d="M 50 85 L 50 40" stroke="#FFD700" stroke-width="3" fill="none"/>
+
+  <!-- Wheat grains (left side) -->
+  <ellipse cx="45" cy="45" rx="4" ry="6" fill="#FFD700"/>
+  <ellipse cx="44" cy="52" rx="4" ry="6" fill="#FFD700"/>
+  <ellipse cx="45" cy="59" rx="4" ry="6" fill="#FFD700"/>
+  <ellipse cx="44" cy="66" rx="4" ry="6" fill="#FFD700"/>
+
+  <!-- Wheat grains (right side) -->
+  <ellipse cx="55" cy="45" rx="4" ry="6" fill="#FFD700"/>
+  <ellipse cx="56" cy="52" rx="4" ry="6" fill="#FFD700"/>
+  <ellipse cx="55" cy="59" rx="4" ry="6" fill="#FFD700"/>
+  <ellipse cx="56" cy="66" rx="4" ry="6" fill="#FFD700"/>
+
+  <!-- Wheat awns (top decorative strands) -->
+  <line x1="45" y1="45" x2="40" y2="35" stroke="#FFD700" stroke-width="1.5"/>
+  <line x1="50" y1="40" x2="50" y2="28" stroke="#FFD700" stroke-width="1.5"/>
+  <line x1="55" y1="45" x2="60" y2="35" stroke="#FFD700" stroke-width="1.5"/>
+
+  <!-- Small decorative dots at top -->
+  <circle cx="40" cy="35" r="1.5" fill="#FFD700"/>
+  <circle cx="50" cy="28" r="1.5" fill="#FFD700"/>
+  <circle cx="60" cy="35" r="1.5" fill="#FFD700"/>
+</svg>
