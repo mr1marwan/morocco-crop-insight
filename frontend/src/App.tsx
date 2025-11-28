@@ -15,6 +15,7 @@ import ProductionLineChart from './components/ProductionLineChart';
 import TopCropsBarChart from './components/TopCropsBarChart';
 import CropDistributionPieChart from './components/CropDistributionPieChart';
 import RegionalMap from './components/RegionalMap';
+import DataTable from './components/DataTable';
 
 const cropColors: Record<string, string> = {
   'Wheat': '#8B4513',
@@ -230,6 +231,37 @@ function DashboardContent() {
 
         {/* Map */}
         <RegionalMap geoJsonData={geoJsonData} dataMap={dataMap} />
+
+        {/* Data Table - Only show in single crop mode */}
+        {!comparisonMode && (
+          <div className="mt-8">
+            <DataTable
+              data={cropChartData}
+              columns={[
+                { key: 'year', label: t('charts.year'), sortable: true },
+                { key: 'crop_fr', label: t('charts.crop'), sortable: true },
+                {
+                  key: 'production_kt',
+                  label: t('charts.productionKt'),
+                  sortable: true,
+                  format: (val: number) => `${val.toFixed(1)} kt`
+                },
+                {
+                  key: 'area_ha',
+                  label: 'Area (ha)',
+                  sortable: true,
+                  format: (val: number) => val ? val.toLocaleString() : 'N/A'
+                },
+                {
+                  key: 'yield_tha',
+                  label: 'Yield (t/ha)',
+                  sortable: true,
+                  format: (val: number) => val ? val.toFixed(2) : 'N/A'
+                }
+              ]}
+            />
+          </div>
+        )}
         </div>
       </main>
 
