@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --font-family-sans: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --color-morocco-green: #006400;
+  --color-morocco-light: #74c476;
+  --color-morocco-red: #c60c30;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui;
 }

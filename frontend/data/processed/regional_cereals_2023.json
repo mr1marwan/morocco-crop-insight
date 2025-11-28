@@ -1,0 +1,50 @@
+[
+  {
+    "region":"Tanger-Tétouan-Al Hoceima",
+    "production_2023_kt":682.0
+  },
+  {
+    "region":"Oriental",
+    "production_2023_kt":69.5
+  },
+  {
+    "region":"Fés-Meknés",
+    "production_2023_kt":1493.6
+  },
+  {
+    "region":"Rabat-Salé-Kénitra",
+    "production_2023_kt":1458.7
+  },
+  {
+    "region":"Béni Mellal-Khénifra",
+    "production_2023_kt":614.0
+  },
+  {
+    "region":"Grand Casablanca-Settat",
+    "production_2023_kt":930.4
+  },
+  {
+    "region":"Marrakech-Safi",
+    "production_2023_kt":151.4
+  },
+  {
+    "region":"Drâa-Tafilalet",
+    "production_2023_kt":95.9
+  },
+  {
+    "region":"Souss-Massa",
+    "production_2023_kt":9.3
+  },
+  {
+    "region":"Guelmim-Oued Noun",
+    "production_2023_kt":2.0
+  },
+  {
+    "region":"Laayoune-Sakia El Hamra",
+    "production_2023_kt":0.0
+  },
+  {
+    "region":"Eddakhla-Oued Eddahab",
+    "production_2023_kt":0.0
+  }
+]
