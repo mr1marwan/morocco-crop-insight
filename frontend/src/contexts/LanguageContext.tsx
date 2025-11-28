@@ -56,6 +56,11 @@ const translations: Record<Language, Record<string, string>> = {
     'filter.showingData': 'Showing data for',
     'filter.years': 'years',
 
+    // Comparison Mode
+    'comparison.title': 'Comparison Mode',
+    'comparison.description': 'Compare multiple crops side-by-side',
+    'comparison.chartTitle': 'Crop Production Comparison',
+
     // Footer
     'footer.about': 'About Morocco Crop Insight',
     'footer.aboutText': 'An interactive platform providing comprehensive agricultural analytics for Morocco, featuring crop production data, regional insights, and trends from 2013-2023.',
@@ -109,6 +114,11 @@ const translations: Record<Language, Record<string, string>> = {
     'filter.toYear': 'Jusqu\'à l\'Année',
     'filter.showingData': 'Affichage des données pour',
     'filter.years': 'années',
+
+    // Comparison Mode
+    'comparison.title': 'Mode Comparaison',
+    'comparison.description': 'Comparer plusieurs cultures côte à côte',
+    'comparison.chartTitle': 'Comparaison de Production des Cultures',
 
     // Footer
     'footer.about': 'À Propos',

@@ -5,6 +5,9 @@ import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CropSelector from './components/CropSelector';
+import MultiCropSelector from './components/MultiCropSelector';
+import ComparisonModeToggle from './components/ComparisonModeToggle';
+import ComparisonChart from './components/ComparisonChart';
 import ExportButton from './components/ExportButton';
 import YearRangeFilter from './components/YearRangeFilter';
 import KPICards from './components/KPICards';
@@ -32,6 +35,8 @@ function DashboardContent() {
   const [loading, setLoading] = useState(true);
   const [selectedMinYear, setSelectedMinYear] = useState(2013);
   const [selectedMaxYear, setSelectedMaxYear] = useState(2023);
+  const [comparisonMode, setComparisonMode] = useState(false);
+  const [selectedCrops, setSelectedCrops] = useState<string[]>(['Wheat', 'Barley']);
 
   const API_URL = "http://localhost:8000";
 
@@ -83,6 +88,12 @@ function DashboardContent() {
       .map(d => ({ name: d.crop_fr, value: Math.round(d.production_kt) }))
       .sort((a, b) => b.value - a.value);
   }, [faoData, selectedMaxYear]);
+
+  const comparisonData = useMemo(() => {
+    return faoData
+      .filter(d => selectedCrops.includes(d.crop_en) && d.year >= selectedMinYear && d.year <= selectedMaxYear)
+      .sort((a, b) => a.year - b.year);
+  }, [faoData, selectedCrops, selectedMinYear, selectedMaxYear]);
 
   const kpiData = useMemo(() => {
     const cropData = cropChartData;
@@ -159,12 +170,26 @@ function DashboardContent() {
           </div>
         </div>
 
-        {/* Crop Selector */}
-        <CropSelector
-          crops={crops}
-          selectedCrop={selectedCrop}
-          onSelectCrop={setSelectedCrop}
+        {/* Comparison Mode Toggle */}
+        <ComparisonModeToggle
+          comparisonMode={comparisonMode}
+          onToggle={setComparisonMode}
         />
+
+        {/* Conditional Crop Selector */}
+        {comparisonMode ? (
+          <MultiCropSelector
+            crops={crops}
+            selectedCrops={selectedCrops}
+            onSelectCrops={setSelectedCrops}
+          />
+        ) : (
+          <CropSelector
+            crops={crops}
+            selectedCrop={selectedCrop}
+            onSelectCrop={setSelectedCrop}
+          />
+        )}
 
         {/* Year Range Filter */}
         <YearRangeFilter
@@ -176,19 +201,32 @@ function DashboardContent() {
           onMaxYearChange={setSelectedMaxYear}
         />
 
-        {/* KPI Cards */}
-        <KPICards data={kpiData} />
-
-        {/* Charts Grid */}
-        <div id="analytics" className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <ProductionLineChart
-            data={cropChartData}
-            cropName={crops.find(c => c.en === selectedCrop)?.fr || selectedCrop}
-            color={cropColors[selectedCrop] || '#006400'}
-          />
-          <TopCropsBarChart data={top2023} year={selectedMaxYear} />
-          <CropDistributionPieChart data={top2023} />
-        </div>
+        {/* Conditional Content Based on Mode */}
+        {comparisonMode ? (
+          /* Comparison Mode: Show comparison chart */
+          <div id="analytics" className="grid grid-cols-1 gap-6 mb-8">
+            <ComparisonChart
+              data={comparisonData}
+              selectedCrops={selectedCrops}
+              cropColors={cropColors}
+              crops={crops}
+            />
+          </div>
+        ) : (
+          /* Single Crop Mode: Show KPI Cards and Charts */
+          <>
+            <KPICards data={kpiData} />
+            <div id="analytics" className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+              <ProductionLineChart
+                data={cropChartData}
+                cropName={crops.find(c => c.en === selectedCrop)?.fr || selectedCrop}
+                color={cropColors[selectedCrop] || '#006400'}
+              />
+              <TopCropsBarChart data={top2023} year={selectedMaxYear} />
+              <CropDistributionPieChart data={top2023} />
+            </div>
+          </>
+        )}
 
         {/* Map */}
         <RegionalMap geoJsonData={geoJsonData} dataMap={dataMap} />
