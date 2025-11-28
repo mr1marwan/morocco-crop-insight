@@ -5,26 +5,26 @@ const Navbar = () => {
   const { darkMode } = useTheme();
 
   return (
-    <nav className={`sticky top-0 z-50 backdrop-blur-lg border-b transition-colors duration-300 ${
-      darkMode
-        ? 'bg-gray-900/95 border-gray-700'
-        : 'bg-white/95 border-gray-200'
+    <nav className={`w-full sticky top-0 z-50 backdrop-blur-lg border-b transition-colors duration-300 ${
+      darkMode ? 'bg-gray-900/95 border-gray-700' : 'bg-white/95 border-gray-200'
     }`}>
-      <div className="max-w-7xl mx-auto px-12">
+      <div className="w-full max-w-[1200px] mx-auto px-6">
         <div className="flex justify-between items-center h-16">
           {/* Logo and Title */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-4">
             <div className={`text-3xl font-bold ${
               darkMode ? 'text-green-400' : 'text-morocco-green'
             }`}>
               MCI
             </div>
-            <div className="border-l-2 border-gray-300 h-8 mx-2"></div>
-            <h1 className={`text-xl font-bold tracking-tight ${
-              darkMode ? 'text-white' : 'text-gray-900'
-            }`}>
-              Morocco Crop Insight
-            </h1>
+            <div className="hidden sm:flex items-center gap-3">
+              <div className={`w-px h-8 ${darkMode ? 'bg-gray-700' : 'bg-gray-300'}`}></div>
+              <h1 className={`text-xl font-bold tracking-tight ${
+                darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
+                Morocco Crop Insight
+              </h1>
+            </div>
           </div>
 
           {/* Navigation Links */}

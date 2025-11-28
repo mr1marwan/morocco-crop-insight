@@ -7,20 +7,10 @@
   --font-family-sans: system-ui, -apple-system, sans-serif;
 }
 
+/* Dark mode toggle variables */
 :root {
   --bg: #fff;
-  --primary: hsl(48,90%,55%);
-  --primaryT: hsla(48,90%,55%,0.125);
+  --primary: hsl(48, 90%, 55%);
+  --primaryT: hsla(48, 90%, 55%, 0.125);
   --transDur: 0.3s;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
 }
