@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 # Load data once at startup
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 regional = json.load(open(os.path.join(BASE_DIR, "data/processed/regional_cereals_2023.json")))
 fao = pd.read_csv(os.path.join(BASE_DIR, "data/processed/fao_national_clean.csv"))
 
