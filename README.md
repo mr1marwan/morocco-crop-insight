@@ -1,7 +1,7 @@
 # 🌾 Morocco Crop Insight
 
 > **An interactive agricultural analytics platform** providing comprehensive crop production insights for Morocco, featuring real-time data visualization, comparative analysis, and multi-format exports.
-
+link : https://morocco-crop-insight.vercel.app/
 ![Morocco Crop Insight](https://img.shields.io/badge/React-19.2.0-61DAFB?style=flat&logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=flat&logo=typescript&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat&logo=fastapi&logoColor=white)
