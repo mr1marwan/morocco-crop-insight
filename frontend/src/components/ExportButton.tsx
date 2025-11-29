@@ -81,7 +81,7 @@ const ExportButton = ({ data, selectedCrop }: ExportButtonProps) => {
 
     // Draw data rows
     doc.setFont('helvetica', 'normal');
-    data.forEach((row, index) => {
+    data.forEach((row) => {
       y += 7;
       if (y > 270) { // New page if needed
         doc.addPage();

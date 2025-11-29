@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import type { LatLngExpression } from 'leaflet';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import 'leaflet/dist/leaflet.css';
@@ -58,7 +59,7 @@ const RegionalMap = ({ geoJsonData, dataMap }: RegionalMapProps) => {
       <div className="relative">
         {geoJsonData && (
           <MapContainer
-            center={[32, -7]}
+            center={[32, -7] as LatLngExpression}
             zoom={6}
             style={{ height: "500px" }}
             className="z-0"
@@ -67,11 +68,11 @@ const RegionalMap = ({ geoJsonData, dataMap }: RegionalMapProps) => {
               url={darkMode
                 ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                 : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
-              attribution='&copy; OpenStreetMap contributors'
             />
             <GeoJSON
               key={JSON.stringify(dataMap)}
               data={geoJsonData}
+              // @ts-ignore - React Leaflet v5 types issue
               style={style}
               onEachFeature={onEachFeature}
             />

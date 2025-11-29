@@ -34,7 +34,7 @@ const CropDistributionPieChart = ({ data }: CropDistributionPieChartProps) => {
             dataKey="value"
             fontSize={11}
           >
-            {data.map((entry, index) => (
+            {data.map((_entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
