@@ -39,7 +39,7 @@ function DashboardContent() {
   const [comparisonMode, setComparisonMode] = useState(false);
   const [selectedCrops, setSelectedCrops] = useState<string[]>(['Wheat', 'Barley']);
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+  const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
 
   useEffect(() => {
     const loadData = async () => {
